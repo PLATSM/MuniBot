@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot\\MuniBot.csproj": {}
+    "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot.csproj": {}
   },
   "projects": {
-    "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot\\MuniBot.csproj": {
+    "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot\\MuniBot.csproj",
+        "projectUniqueName": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot.csproj",
         "projectName": "MuniBot",
-        "projectPath": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot\\MuniBot.csproj",
+        "projectPath": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot.csproj",
         "packagesPath": "C:\\Users\\Ricardo\\.nuget\\packages\\",
-        "outputPath": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot\\obj\\",
+        "outputPath": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.Bot.Builder.Azure": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
             "Microsoft.Bot.Builder.Integration.AspNet.Core": {
               "target": "Package",
               "version": "[4.8.0, )"
