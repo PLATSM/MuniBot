@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MuniBot.Infraestructure.Luis
 {
-    interface ILuisService
+    public interface ILuisService
     {
         LuisRecognizer _luisRecognizer { get; set; }
     }

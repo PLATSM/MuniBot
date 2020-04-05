@@ -7932,6 +7932,7 @@
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.Bot.Builder.AI.Luis >= 4.8.0",
       "Microsoft.Bot.Builder.Azure >= 4.8.0",
+      "Microsoft.Bot.Builder.Dialogs >= 4.8.0",
       "Microsoft.Bot.Builder.Integration.AspNet.Core >= 4.8.0"
     ]
   },
@@ -7981,6 +7982,10 @@
             "version": "[4.8.0, )"
           },
           "Microsoft.Bot.Builder.Azure": {
+            "target": "Package",
+            "version": "[4.8.0, )"
+          },
+          "Microsoft.Bot.Builder.Dialogs": {
             "target": "Package",
             "version": "[4.8.0, )"
           },

@@ -96,3 +96,16 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win7-x64\
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Private.ServiceModel.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Azure.CognitiveServices.Language.LUIS.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.AI.Luis.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.Dialogs.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Definitions.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Text.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Text.Choice.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Text.DateTime.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Text.Number.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recognizers.Text.NumberWithUnit.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csproj.CoreCompileInputs.cache
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cs
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cache

@@ -11,6 +11,7 @@ using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MuniBot.Dialogs;
 using MuniBot.Infraestructure.Luis;
 
 namespace MuniBot
@@ -41,13 +42,14 @@ namespace MuniBot
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSingleton<ILuisService, LuisService>();
+            services.AddSingleton<RootDialog>();
 
 
             // Create the Bot Framework Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, MuniBot>();
+            services.AddTransient<IBot, MuniBot<RootDialog>>();
 
         }
 
