@@ -41,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.Bot.Builder.AI.Luis": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
             "Microsoft.Bot.Builder.Azure": {
               "target": "Package",
               "version": "[4.8.0, )"
