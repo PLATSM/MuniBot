@@ -33,7 +33,7 @@ namespace MuniBot
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    await turnContext.SendActivityAsync(MessageFactory.Text($"Hello world!"), cancellationToken);
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Bienvenido al asistente virtual de la Municipalidad!"), cancellationToken);
                 }
             }
         }

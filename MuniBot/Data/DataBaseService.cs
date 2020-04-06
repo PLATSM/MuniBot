@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MuniBot.Common.Models.Qualification;
 using MuniBot.Common.Models.User;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace MuniBot.Data
         }
 
         public DbSet<UserModel> User { get; set; }
+        public DbSet<QualificationModel> Qualification { get; set; }
         public async Task<bool> SaveAsync()
         {
             return (await SaveChangesAsync()>0);
@@ -28,6 +30,7 @@ namespace MuniBot.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserModel>().ToContainer("User").HasPartitionKey("channel").HasNoDiscriminator().HasKey("id");
+            modelBuilder.Entity<QualificationModel>().ToContainer("Qualification").HasPartitionKey("idUser").HasNoDiscriminator().HasKey("id");
 
         }
     }

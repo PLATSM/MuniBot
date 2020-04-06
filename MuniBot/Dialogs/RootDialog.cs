@@ -1,6 +1,8 @@
 ﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using MuniBot.Common.Cards;
+using MuniBot.Data;
+using MuniBot.Dialogs.Qualification;
 using MuniBot.Infraestructure.Luis;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,20 @@ namespace MuniBot.Dialogs
     public class RootDialog: ComponentDialog
     {
         private readonly ILuisService _luisService;
+        private readonly IDataBaseService _databaseService;
 
-        public RootDialog(ILuisService luisService)
+        public RootDialog(ILuisService luisService, IDataBaseService databaseService)
         {
             _luisService = luisService;
+            _databaseService = databaseService;
+
             var waterfallSteps = new WaterfallStep[]
             {
                 InitialProcess,
                 FinalProcess
             };
+            AddDialog(new QualificationDialog(_databaseService));
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog),waterfallSteps));
             InitialDialogId = nameof(WaterfallDialog);
         }
@@ -53,6 +60,8 @@ namespace MuniBot.Dialogs
                 case "Contactar":
                     await IntentContactar(stepContext, luisResult, cancellationToken);
                     break;
+                case "CalificarBot":
+                    return await IntentCalificar(stepContext, luisResult, cancellationToken);
                 case "None":
                     await IntentNone(stepContext, luisResult, cancellationToken);
                     break;
@@ -64,7 +73,13 @@ namespace MuniBot.Dialogs
         }
 
 
+
         #region IntentLuis;
+        private async Task<DialogTurnResult> IntentCalificar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            return await stepContext.BeginDialogAsync(nameof(QualificationDialog), cancellationToken: cancellationToken);
+        }
+
         private async Task IntentContactar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             string phoneDetail = $"Nuestro números de atención son los siguientes:{Environment.NewLine}"+

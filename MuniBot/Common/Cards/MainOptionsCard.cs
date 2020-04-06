@@ -78,13 +78,25 @@ namespace MuniBot.Common.Cards
                 }
             };
 
+            var cardCalificarBot = new HeroCard
+            {
+                Title = "Calificación",
+                Subtitle = "Opciones",
+                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/06_Calificar.jpg") },
+                Buttons = new List<CardAction>()
+                {
+                    new CardAction(){Title = "Calificar Bot",Value="Calificar Bot",Type=ActionTypes.ImBack}
+                }
+            };
+
             var optionAttachments = new List<Attachment>()
             {
                 cardImpuestoAlcabala.ToAttachment(),
                 cardLicenciaFuncionamiento.ToAttachment(),
                 cardImpuestoVehicular.ToAttachment(),
                 cardEstadoCuenta.ToAttachment(),
-                cardCentroContacto.ToAttachment()
+                cardCentroContacto.ToAttachment(),
+                cardCalificarBot.ToAttachment()
             };
             var reply = MessageFactory.Attachment(optionAttachments);
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;

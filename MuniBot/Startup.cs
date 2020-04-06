@@ -53,7 +53,7 @@ namespace MuniBot
 
 
             services.AddSingleton<ILuisService, LuisService>();
-            services.AddSingleton<RootDialog>();
+            services.AddTransient<RootDialog>(); // porque vamos a utilizar dialogos externos
 
 
             // Create the Bot Framework Adapter with error handling enabled.
