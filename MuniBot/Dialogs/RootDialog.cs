@@ -50,6 +50,9 @@ namespace MuniBot.Dialogs
                 case "VerOpciones":
                     await IntentVerOpciones(stepContext, luisResult, cancellationToken);
                     break;
+                case "Contactar":
+                    await IntentContactar(stepContext, luisResult, cancellationToken);
+                    break;
                 case "None":
                     await IntentNone(stepContext, luisResult, cancellationToken);
                     break;
@@ -60,7 +63,22 @@ namespace MuniBot.Dialogs
             return await stepContext.NextAsync(cancellationToken:cancellationToken); // para que salte al siguiente método
         }
 
+
         #region IntentLuis;
+        private async Task IntentContactar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            string phoneDetail = $"Nuestro números de atención son los siguientes:{Environment.NewLine}"+
+                $"+51 66778888{Environment.NewLine} +51 456789258";
+
+            string addresDetail = $"Av.Saenz Peña 199, Callao, Lima";
+
+            await stepContext.Context.SendActivityAsync(phoneDetail,cancellationToken:cancellationToken);
+            await Task.Delay(1000);
+            await stepContext.Context.SendActivityAsync(addresDetail, cancellationToken: cancellationToken);
+            await Task.Delay(1000);
+            await stepContext.Context.SendActivityAsync("En que más te puedo ayudar?", cancellationToken: cancellationToken);
+        }
+
         private async Task IntentVerOpciones(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             await stepContext.Context.SendActivityAsync("Aqui tengo mis opciones:", cancellationToken: cancellationToken);

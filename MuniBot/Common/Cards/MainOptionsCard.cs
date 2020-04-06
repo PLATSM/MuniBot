@@ -66,12 +66,25 @@ namespace MuniBot.Common.Cards
                 }
             };
 
+            var cardCentroContacto = new HeroCard
+            {
+                Title = "Centro de Contactos",
+                Subtitle = "Opciones",
+                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/05_CentroContactos.png") },
+                Buttons = new List<CardAction>()
+                {
+                    new CardAction(){Title = "Contactos",Value="Centro de Contactos",Type=ActionTypes.ImBack},
+                    new CardAction(){Title = "Sitio Web",Value="http://www.municallao.gob.pe/index.php/locales-municipales",Type=ActionTypes.OpenUrl}
+                }
+            };
+
             var optionAttachments = new List<Attachment>()
             {
                 cardImpuestoAlcabala.ToAttachment(),
                 cardLicenciaFuncionamiento.ToAttachment(),
                 cardImpuestoVehicular.ToAttachment(),
-                cardEstadoCuenta.ToAttachment()
+                cardEstadoCuenta.ToAttachment(),
+                cardCentroContacto.ToAttachment()
             };
             var reply = MessageFactory.Attachment(optionAttachments);
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
