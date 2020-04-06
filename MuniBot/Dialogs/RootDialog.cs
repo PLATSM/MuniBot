@@ -1,5 +1,6 @@
 ﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
+using MuniBot.Common.Cards;
 using MuniBot.Infraestructure.Luis;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,9 @@ namespace MuniBot.Dialogs
                 case "Despedir":
                     await IntentDespedir(stepContext, luisResult, cancellationToken);
                     break;
+                case "VerOpciones":
+                    await IntentVerOpciones(stepContext, luisResult, cancellationToken);
+                    break;
                 case "None":
                     await IntentNone(stepContext, luisResult, cancellationToken);
                     break;
@@ -55,7 +59,13 @@ namespace MuniBot.Dialogs
             }
             return await stepContext.NextAsync(cancellationToken:cancellationToken); // para que salte al siguiente método
         }
+
         #region IntentLuis;
+        private async Task IntentVerOpciones(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await stepContext.Context.SendActivityAsync("Aqui tengo mis opciones:", cancellationToken: cancellationToken);
+            await MainOptionsCard.ToShow(stepContext, cancellationToken);
+        }
 
         private async Task IntentSaludar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {

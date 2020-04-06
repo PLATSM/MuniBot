@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MuniBot.Data;
 using MuniBot.Dialogs;
 using MuniBot.Infraestructure.Luis;
 
@@ -40,6 +42,15 @@ namespace MuniBot
             services.AddSingleton(conversationState);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddDbContext<DataBaseService>(options => {
+                options.UseCosmos(
+                    Configuration["CosmosEndPoint"],
+                    Configuration["CosmosKey"],
+                    Configuration["CosmosDataBase"]
+                    );
+            });
+            services.AddScoped<IDataBaseService, DataBaseService>();
+
 
             services.AddSingleton<ILuisService, LuisService>();
             services.AddSingleton<RootDialog>();
