@@ -1,0 +1,39 @@
+﻿{
+  "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Image",
+      "url": "https://munibotstorage.blob.core.windows.net/images/00_LogoMunicipalidad.png",
+      "horizontalAlignment": "Left",
+      "width": "250px",
+      "height": "100px"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "Medium",
+      "size": "default",
+      "weight": "Bolder",
+      "text": "Bienvenido al asistente virtual!",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": true,
+      "text": "El asistente virtual te guiará a realizar consultas y trámites en forma amigable.",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ],
+  "actions": 
+  [
+    {
+      "type": "Action.Submit",
+      "title": "Menu Principal",
+      "data": "Menu Principal"
+    }
+  ]
+}

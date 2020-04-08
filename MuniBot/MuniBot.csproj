@@ -6,6 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\Cards\DialogAndWelcomeBot.cs" />
+    <Compile Remove="Common\Cards\DialogBot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Common\json\menuCard.json" />
+    <Content Remove="Common\json\welcomeCard.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Common\json\menuCard.json" />
+    <EmbeddedResource Include="Common\json\welcomeCard.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Bot.Builder.AI.Luis" Version="4.8.0" />
     <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.8.0" />
