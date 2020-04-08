@@ -125,4 +125,3 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\staticwebassets\Mu
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.pdb
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.genruntimeconfig.cache
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csprojAssemblyReference.cache

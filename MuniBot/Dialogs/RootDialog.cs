@@ -2,6 +2,7 @@
 using Microsoft.Bot.Builder.Dialogs;
 using MuniBot.Common.Cards;
 using MuniBot.Data;
+using MuniBot.Dialogs.CrearTramite;
 using MuniBot.Dialogs.Qualification;
 using MuniBot.Infraestructure.Luis;
 using System;
@@ -17,7 +18,7 @@ namespace MuniBot.Dialogs
         private readonly ILuisService _luisService;
         private readonly IDataBaseService _databaseService;
 
-        public RootDialog(ILuisService luisService, IDataBaseService databaseService)
+        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState)
         {
             _luisService = luisService;
             _databaseService = databaseService;
@@ -28,6 +29,7 @@ namespace MuniBot.Dialogs
                 FinalProcess
             };
             AddDialog(new QualificationDialog(_databaseService));
+            AddDialog(new CrearTramiteDialog(_databaseService,userState));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog),waterfallSteps));
             InitialDialogId = nameof(WaterfallDialog);
@@ -62,6 +64,8 @@ namespace MuniBot.Dialogs
                     break;
                 case "CalificarBot":
                     return await IntentCalificar(stepContext, luisResult, cancellationToken);
+                case "SolicitarTramite":
+                    return await IntentSolicitarTramite(stepContext, luisResult, cancellationToken);
                 case "None":
                     await IntentNone(stepContext, luisResult, cancellationToken);
                     break;
@@ -72,9 +76,11 @@ namespace MuniBot.Dialogs
             return await stepContext.NextAsync(cancellationToken:cancellationToken); // para que salte al siguiente método
         }
 
-
-
         #region IntentLuis;
+        private async Task<DialogTurnResult> IntentSolicitarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            return await stepContext.BeginDialogAsync(nameof(CrearTramiteDialog),cancellationToken:cancellationToken);
+        }   
         private async Task<DialogTurnResult> IntentCalificar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             return await stepContext.BeginDialogAsync(nameof(QualificationDialog), cancellationToken: cancellationToken);

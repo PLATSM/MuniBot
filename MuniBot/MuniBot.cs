@@ -58,7 +58,6 @@ namespace MuniBot
 
                     //return await _dialog.BeginDialogAsync(nameof(RootDialog), rootDialog, cancellationToken);
 
-                    // await WelcomeCard.ToShow(stepContext, cancellationToken);
                 }
             }
         }
