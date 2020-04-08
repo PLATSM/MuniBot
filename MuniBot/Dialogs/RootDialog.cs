@@ -66,6 +66,9 @@ namespace MuniBot.Dialogs
                     return await IntentCalificar(stepContext, luisResult, cancellationToken);
                 case "SolicitarTramite":
                     return await IntentSolicitarTramite(stepContext, luisResult, cancellationToken);
+                case "ConsultarTramite":
+                    await IntentConsultarTramite(stepContext, luisResult, cancellationToken);
+                    break;
                 case "None":
                     await IntentNone(stepContext, luisResult, cancellationToken);
                     break;
@@ -77,6 +80,38 @@ namespace MuniBot.Dialogs
         }
 
         #region IntentLuis;
+        private async Task IntentConsultarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await stepContext.Context.SendActivityAsync("Un momento por favor...", cancellationToken: cancellationToken);
+            await Task.Delay(1000);
+            string idUser = stepContext.Context.Activity.From.Id;
+
+            var tramiteData = _databaseService.Tramite.Where(x=> x.idUser == idUser).ToList();
+            if (tramiteData.Count > 0)
+            {
+                var tramiteLista = tramiteData.Where(p => p.date >= DateTime.Now.Date).ToList();
+
+                if (tramiteLista.Count > 0)
+                {
+                    await stepContext.Context.SendActivityAsync("Estas son tus trámites",cancellationToken:cancellationToken);
+                    foreach (var item in tramiteLista)
+                    {
+                        await Task.Delay(1000);
+
+                        if (item.date == DateTime.Now.Date && item.time < DateTime.Now.Hour)
+                            continue;
+
+                        var tramiteSummary = $"Fecha: {item.date.ToShortDateString()}" + $"{Environment.NewLine}Hora: {item.time}";
+
+                        await stepContext.Context.SendActivityAsync(tramiteSummary,cancellationToken:cancellationToken);
+                    }
+                }
+                else
+                    await stepContext.Context.SendActivityAsync("No se encontró información", cancellationToken: cancellationToken);
+            }
+            else
+                await stepContext.Context.SendActivityAsync("No se encontró información", cancellationToken: cancellationToken);
+        }
         private async Task<DialogTurnResult> IntentSolicitarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             return await stepContext.BeginDialogAsync(nameof(CrearTramiteDialog),cancellationToken:cancellationToken);
