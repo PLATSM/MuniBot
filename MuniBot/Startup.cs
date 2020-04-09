@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MuniBot.Data;
 using MuniBot.Dialogs;
 using MuniBot.Infraestructure.Luis;
+using MuniBot.Infraestructure.QnAMakerAI;
 using MuniBot.Infraestructure.SendGrid;
 
 namespace MuniBot
@@ -54,6 +55,7 @@ namespace MuniBot
 
 
             services.AddSingleton<ILuisService, LuisService>();
+            services.AddSingleton<IQnAMakerAIService, QnAMakerAIService>();
             services.AddSingleton<ISendGridEmailService, SendGridEmailService>();
             services.AddTransient<RootDialog>(); // porque vamos a utilizar dialogos externos
 

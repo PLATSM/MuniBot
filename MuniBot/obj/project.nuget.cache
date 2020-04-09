@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+bizJzNZHvUTurVBw6hcWnINkmDyKb6LzzoXp9h3Ot7vYJUKnYJn6NyOSaUBGhkq0AFcF5YrU5P3z4Y/BXaT0w==",
+  "dgSpecHash": "DTuUriUqzPYhqccEKPVS1kvw7HXQcEXgjnMGrHbjwbh9hqEy9UdqgUr1Ogq2gmb+f4vWmjEjvs2ySEaLh/azeQ==",
   "success": true,
   "projectFilePath": "D:\\UPC\\Proyecto Tesis\\MuniBot\\MuniBot\\MuniBot.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder\\4.8.0\\microsoft.bot.builder.4.8.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder.ai.luis\\4.8.0\\microsoft.bot.builder.ai.luis.4.8.0.nupkg.sha512",
+    "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder.ai.qna\\4.8.0\\microsoft.bot.builder.ai.qna.4.8.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder.azure\\4.8.0\\microsoft.bot.builder.azure.4.8.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder.dialogs\\4.8.0\\microsoft.bot.builder.dialogs.4.8.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.bot.builder.integration.aspnet.core\\4.8.0\\microsoft.bot.builder.integration.aspnet.core.4.8.0.nupkg.sha512",

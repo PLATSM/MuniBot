@@ -5,6 +5,7 @@ using MuniBot.Data;
 using MuniBot.Dialogs.CrearTramite;
 using MuniBot.Dialogs.Qualification;
 using MuniBot.Infraestructure.Luis;
+using MuniBot.Infraestructure.QnAMakerAI;
 using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace MuniBot.Dialogs
     public class RootDialog: ComponentDialog
     {
         private readonly ILuisService _luisService;
+        private readonly IQnAMakerAIService _qnaMakerAIService;
         private readonly IDataBaseService _databaseService;
         private readonly ISendGridEmailService _sendGridEmailService;
 
-        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState, ISendGridEmailService sendGridEmailService)
+        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState, ISendGridEmailService sendGridEmailService, IQnAMakerAIService qnaMakerAIService)
         {
             _luisService = luisService;
+            _qnaMakerAIService = qnaMakerAIService;
             _databaseService = databaseService;
             _sendGridEmailService = sendGridEmailService;
 
@@ -48,37 +51,47 @@ namespace MuniBot.Dialogs
         private async Task<DialogTurnResult> ManageIntentions(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             var topIntent = luisResult.GetTopScoringIntent();
-            switch (topIntent.intent)
-            {
-                case "Saludar":
-                    await IntentSaludar(stepContext, luisResult, cancellationToken);
-                    break;
-                case "Agradecer":
-                    await IntentAgradecer(stepContext, luisResult, cancellationToken);
-                    break;
-                case "Despedir":
-                    await IntentDespedir(stepContext, luisResult, cancellationToken);
-                    break;
-                case "VerOpciones":
-                    await IntentVerOpciones(stepContext, luisResult, cancellationToken);
-                    break;
-                case "Contactar":
-                    await IntentContactar(stepContext, luisResult, cancellationToken);
-                    break;
-                case "CalificarBot":
-                    return await IntentCalificar(stepContext, luisResult, cancellationToken);
-                case "SolicitarTramite":
-                    return await IntentSolicitarTramite(stepContext, luisResult, cancellationToken);
-                case "ConsultarTramite":
-                    await IntentConsultarTramite(stepContext, luisResult, cancellationToken);
-                    break;
-                case "None":
-                    await IntentNone(stepContext, luisResult, cancellationToken);
-                    break;
-                default:
-                    break;
 
+            if (topIntent.score < 0.5)
+            {
+                await IntentNone(stepContext, luisResult, cancellationToken);
             }
+            else
+            {
+                switch (topIntent.intent)
+                {
+                    case "Saludar":
+                        await IntentSaludar(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "Agradecer":
+                        await IntentAgradecer(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "Despedir":
+                        await IntentDespedir(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "VerOpciones":
+                        await IntentVerOpciones(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "Contactar":
+                        await IntentContactar(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "CalificarBot":
+                        return await IntentCalificar(stepContext, luisResult, cancellationToken);
+                    case "SolicitarTramite":
+                        return await IntentSolicitarTramite(stepContext, luisResult, cancellationToken);
+                    case "ConsultarTramite":
+                        await IntentConsultarTramite(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "None":
+                        await IntentNone(stepContext, luisResult, cancellationToken);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+
+
             return await stepContext.NextAsync(cancellationToken:cancellationToken); // para que salte al siguiente método
         }
 
@@ -161,7 +174,21 @@ namespace MuniBot.Dialogs
 
         private async Task IntentNone(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync("No entiendo lo que me dices.", cancellationToken: cancellationToken);
+            var resultQnA = await _qnaMakerAIService._qnaMakerResult.GetAnswersAsync(stepContext.Context);
+
+            var score = resultQnA.FirstOrDefault()?.Score; // Capturo el puntaje
+            string response = resultQnA.FirstOrDefault()?.Answer; // Capturo la respuesta que devuelve Qna Maker
+
+            if (score >= 0.5)
+            {
+                await stepContext.Context.SendActivityAsync(response, cancellationToken: cancellationToken);
+            }
+            else
+            {
+                await stepContext.Context.SendActivityAsync("No entiendo lo que me dices.", cancellationToken: cancellationToken);
+                await Task.Delay(1000);
+                await IntentVerOpciones(stepContext,luisResult,cancellationToken:cancellationToken);
+            }
         }
 
         #endregion
