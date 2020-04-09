@@ -980,6 +980,18 @@
           }
         }
       },
+      "SendGrid/9.13.2": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.Buffers/4.5.0": {
         "type": "package",
         "compile": {
@@ -3907,6 +3919,26 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "SendGrid/9.13.2": {
+      "sha512": "wtdeav+dxC9jGEH0NQxT8IEEs39OEvyN4MS05eLyGXo6Uors7syA/SghrLZUcAnXjRHN0ay25Z2UgI/KFlxTZQ==",
+      "type": "package",
+      "path": "sendgrid/9.13.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/SendGrid.dll",
+        "lib/net452/SendGrid.pdb",
+        "lib/net452/SendGrid.xml",
+        "lib/netstandard1.3/SendGrid.dll",
+        "lib/netstandard1.3/SendGrid.pdb",
+        "lib/netstandard1.3/SendGrid.xml",
+        "lib/netstandard2.0/SendGrid.dll",
+        "lib/netstandard2.0/SendGrid.pdb",
+        "lib/netstandard2.0/SendGrid.xml",
+        "sendgrid.9.13.2.nupkg.sha512",
+        "sendgrid.nuspec"
       ]
     },
     "System.Buffers/4.5.0": {
@@ -8314,7 +8346,8 @@
       "Microsoft.Bot.Builder.Azure >= 4.8.0",
       "Microsoft.Bot.Builder.Dialogs >= 4.8.0",
       "Microsoft.Bot.Builder.Integration.AspNet.Core >= 4.8.0",
-      "Microsoft.EntityFrameworkCore.Cosmos >= 3.1.3"
+      "Microsoft.EntityFrameworkCore.Cosmos >= 3.1.3",
+      "Sendgrid >= 9.13.2"
     ]
   },
   "packageFolders": {
@@ -8377,6 +8410,10 @@
           "Microsoft.EntityFrameworkCore.Cosmos": {
             "target": "Package",
             "version": "[3.1.3, )"
+          },
+          "Sendgrid": {
+            "target": "Package",
+            "version": "[9.13.2, )"
           }
         },
         "imports": [

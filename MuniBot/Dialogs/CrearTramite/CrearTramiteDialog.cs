@@ -6,6 +6,7 @@ using MuniBot.Common.Models.BotState;
 using MuniBot.Common.Models.Tramite;
 using MuniBot.Common.Models.User;
 using MuniBot.Data;
+using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,16 @@ namespace MuniBot.Dialogs.CrearTramite
         public static UserModel newUserModel = new UserModel();
         public static TramiteModel tramiteModel = new TramiteModel();
 
+        private readonly ISendGridEmailService _sendGridEmailService;
+
         private readonly IStatePropertyAccessor<BotStateModel> _userState;
 
 
-        public CrearTramiteDialog(IDataBaseService databaseService, UserState userState)
+        public CrearTramiteDialog(IDataBaseService databaseService, UserState userState, ISendGridEmailService sendGridEmailService)
         {
             _databaseService = databaseService;
             _userState = userState.CreateProperty<BotStateModel>(nameof(BotStateModel));
+            _sendGridEmailService = sendGridEmailService;
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -181,6 +185,10 @@ namespace MuniBot.Dialogs.CrearTramite
                     $"{Environment.NewLine} Hora :  {tramiteModel.time}";
 
                 await stepContext.Context.SendActivityAsync(summaryTramite, cancellationToken: cancellationToken);
+
+                //SEND MAIL
+                await SendEmail(userModel, tramiteModel);
+
                 await Task.Delay(1000);
                 await stepContext.Context.SendActivityAsync("En que más puedo ayudarte", cancellationToken: cancellationToken);
                 tramiteModel = new TramiteModel();
@@ -192,6 +200,25 @@ namespace MuniBot.Dialogs.CrearTramite
             }
             return await stepContext.ContinueDialogAsync(cancellationToken:cancellationToken);
         }
+
+        private async Task SendEmail(UserModel userModel, TramiteModel tramiteModel)
+        {
+            string contentEmail = $"Hola  {userModel.fullName},<b/><b>Se registró un trámite con la siguiente información" +
+                $"<br>Fecha:{tramiteModel.date.ToShortDateString()}" +
+                $"<br>Hora: {tramiteModel.time}<b/><b>Saludos.";
+
+            await _sendGridEmailService.Execute(
+                "U201517696@upc.edu.pe",
+                "Ricardo Chavez",
+                userModel.email,
+                userModel.fullName,
+                "Tramite en proceso.",
+                "",
+                contentEmail
+
+                );
+        }
+
         private Activity CreateButtonsTime()
         {
             var reply = MessageFactory.Text("Ahora selecciona la hora");

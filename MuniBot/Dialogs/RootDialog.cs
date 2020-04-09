@@ -5,6 +5,7 @@ using MuniBot.Data;
 using MuniBot.Dialogs.CrearTramite;
 using MuniBot.Dialogs.Qualification;
 using MuniBot.Infraestructure.Luis;
+using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,13 @@ namespace MuniBot.Dialogs
     {
         private readonly ILuisService _luisService;
         private readonly IDataBaseService _databaseService;
+        private readonly ISendGridEmailService _sendGridEmailService;
 
-        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState)
+        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState, ISendGridEmailService sendGridEmailService)
         {
             _luisService = luisService;
             _databaseService = databaseService;
+            _sendGridEmailService = sendGridEmailService;
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -29,7 +32,7 @@ namespace MuniBot.Dialogs
                 FinalProcess
             };
             AddDialog(new QualificationDialog(_databaseService));
-            AddDialog(new CrearTramiteDialog(_databaseService,userState));
+            AddDialog(new CrearTramiteDialog(_databaseService,userState, _sendGridEmailService));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog),waterfallSteps));
             InitialDialogId = nameof(WaterfallDialog);

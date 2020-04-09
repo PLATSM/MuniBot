@@ -113,9 +113,6 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win7-x64\
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Private.ServiceModel.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csproj.CoreCompileInputs.cache
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cs
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cache
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.AssemblyInfoInputs.cache
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.AssemblyInfo.cs
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.RazorTargetAssemblyInfo.cache
@@ -125,3 +122,7 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\staticwebassets\Mu
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.pdb
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.genruntimeconfig.cache
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\SendGrid.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csproj.CoreCompileInputs.cache
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cs
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cache
