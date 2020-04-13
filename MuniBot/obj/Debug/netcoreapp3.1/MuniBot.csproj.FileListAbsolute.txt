@@ -127,3 +127,4 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Buil
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csproj.CoreCompileInputs.cache
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cs
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cache
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csprojAssemblyReference.cache
