@@ -1,19 +1,20 @@
 ﻿{
   "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "id": "0",
   "type": "AdaptiveCard",
   "version": "1.0",
   "body": [
     {
       "type": "Image",
-      "url": "https://munibotstorage.blob.core.windows.net/images/00_LogoMunicipalidad.png",
+      "url": "https://munibotstorage.blob.core.windows.net/images/08_LogoMunicipalidad.png",
       "horizontalAlignment": "Left",
-      "width": "250px",
-      "height": "100px"
+      "width": "400px",
+      "height": "70px"
     },
     {
       "type": "TextBlock",
       "spacing": "Medium",
-      "size": "default",
+      "size": "Small",
       "weight": "Bolder",
       "text": "Bienvenido al asistente virtual!",
       "wrap": true,
@@ -21,19 +22,95 @@
     },
     {
       "type": "TextBlock",
-      "size": "default",
+      "size": "Small",
       "isSubtle": true,
-      "text": "El asistente virtual te guiará a realizar consultas y trámites en forma amigable.",
+      "text": "Te ayudaré a realizar tus trámites y consultas, desde aquí puedes realizar lo siguientes trámites:",
       "wrap": true,
       "maxLines": 0
-    }
-  ],
-  "actions": 
-  [
+    },
     {
-      "type": "Action.Submit",
-      "title": "Menu Principal",
-      "data": "Menu Principal"
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "**-** Licencia de Funcionamiento",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "**-** Impuesto de Alcabala",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "**-** Impuesto Vehicular",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "además puedes",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "  **-** Consultar tu Estado de Cuenta.",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "  **-** Realizar pagos con tu tarjeta de Crédito/Débito.",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Small",
+      "isSubtle": true,
+      "text": "  **-** Consultar cuales son los requisitos para los trámites.",
+      "wrap": true,
+      "maxLines": 0,
+      "spacing": "Small"
     }
+    //{
+    //  "type": "TextBlock",
+    //  "size": "Small",
+    //  "isSubtle": true,
+    //  "text": "Escribe la palabra **Menu** para ver las opciones.",
+    //  "wrap": true,
+    //  "maxLines": 0,
+    //  "horizontalAlignment": "Right",
+    //  "color": "Accent",
+    //  "spacing": "Medium"
+    //}
   ]
+  //"actions": 
+  //[
+  //  {
+  //    "type": "Action.Submit",
+  //    "title": "Menu Principal",
+  //    "data": "Menu Principal"
+        //"data": {
+        //  "id": "welcomeCard"
+        //}
+  //  }
+  //]
 }

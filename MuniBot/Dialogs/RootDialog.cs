@@ -1,5 +1,6 @@
 ﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Schema;
 using MuniBot.Common.Cards;
 using MuniBot.Data;
 using MuniBot.Dialogs.CrearTramite;
@@ -9,12 +10,16 @@ using MuniBot.Infraestructure.QnAMakerAI;
 using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using MuniBot.Common;
 
 namespace MuniBot.Dialogs
 {
+
     public class RootDialog: ComponentDialog
     {
         private readonly ILuisService _luisService;
@@ -34,9 +39,9 @@ namespace MuniBot.Dialogs
                 InitialProcess,
                 FinalProcess
             };
-            AddDialog(new QualificationDialog(_databaseService));
-            AddDialog(new CrearTramiteDialog(_databaseService,userState, _sendGridEmailService));
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            //AddDialog(new QualificationDialog(_databaseService));
+            //AddDialog(new CrearTramiteDialog(_databaseService,userState, _sendGridEmailService));
+            //AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog),waterfallSteps));
             InitialDialogId = nameof(WaterfallDialog);
         }
@@ -51,6 +56,16 @@ namespace MuniBot.Dialogs
         private async Task<DialogTurnResult> ManageIntentions(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             var topIntent = luisResult.GetTopScoringIntent();
+
+            string activityText = stepContext.Context.Activity.Text.ToLower();
+
+            if (string.IsNullOrEmpty(activityText) == false)
+            {
+                if (activityText.IndexOf("requisito", 0) > -1)
+                {
+                    topIntent.score = 0;
+                }
+            }
 
             if (topIntent.score < 0.5)
             {
@@ -69,18 +84,28 @@ namespace MuniBot.Dialogs
                     case "Despedir":
                         await IntentDespedir(stepContext, luisResult, cancellationToken);
                         break;
-                    case "VerOpciones":
-                        await IntentVerOpciones(stepContext, luisResult, cancellationToken);
-                        break;
-                    case "Contactar":
-                        await IntentContactar(stepContext, luisResult, cancellationToken);
-                        break;
                     case "CalificarBot":
                         return await IntentCalificar(stepContext, luisResult, cancellationToken);
-                    case "SolicitarTramite":
-                        return await IntentSolicitarTramite(stepContext, luisResult, cancellationToken);
+                    case "RealizarTramite":
+                        await IntentRealizarTramite(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "RealizarTramiteLicencia":
+                        await IntentRealizarTramiteLicencia(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "RealizarTramiteAlcabala":
+                        await IntentRealizarTramiteAlcabala(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "RealizarTramiteVehicular":
+                        await IntentRealizarTramiteVehicular(stepContext, luisResult, cancellationToken);
+                        break;
                     case "ConsultarTramite":
                         await IntentConsultarTramite(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "CrearCuenta":
+                        await IntentCrearCuenta(stepContext, luisResult, cancellationToken);
+                        break;
+                    case "Login":
+                        await IntentLogin(stepContext, luisResult, cancellationToken);
                         break;
                     case "None":
                         await IntentNone(stepContext, luisResult, cancellationToken);
@@ -91,85 +116,71 @@ namespace MuniBot.Dialogs
                 }
             }
 
-
             return await stepContext.NextAsync(cancellationToken:cancellationToken); // para que salte al siguiente método
         }
 
         #region IntentLuis;
-        private async Task IntentConsultarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        private async Task IntentLogin(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync("Un momento por favor...", cancellationToken: cancellationToken);
-            await Task.Delay(1000);
-            string idUser = stepContext.Context.Activity.From.Id;
-
-            var tramiteData = _databaseService.Tramite.Where(x=> x.idUser == idUser).ToList();
-            if (tramiteData.Count > 0)
+            if (Globales.OnSesion)
             {
-                var tramiteLista = tramiteData.Where(p => p.date >= DateTime.Now.Date).ToList();
-
-                if (tramiteLista.Count > 0)
-                {
-                    await stepContext.Context.SendActivityAsync("Estas son tus trámites",cancellationToken:cancellationToken);
-                    foreach (var item in tramiteLista)
-                    {
-                        await Task.Delay(1000);
-
-                        if (item.date == DateTime.Now.Date && item.time < DateTime.Now.Hour)
-                            continue;
-
-                        var tramiteSummary = $"Fecha: {item.date.ToShortDateString()}" + $"{Environment.NewLine}Hora: {item.time}";
-
-                        await stepContext.Context.SendActivityAsync(tramiteSummary,cancellationToken:cancellationToken);
-                    }
-                }
-                else
-                    await stepContext.Context.SendActivityAsync("No se encontró información", cancellationToken: cancellationToken);
+                await buttonsInicio(stepContext, cancellationToken, $"Su sesión ya fue iniciada como {Globales.no_nombres} {Globales.no_apellido_paterno}");
             }
             else
-                await stepContext.Context.SendActivityAsync("No se encontró información", cancellationToken: cancellationToken);
+            {
+                AdaptiveCard adaptiveCard = new AdaptiveCard();
+                var loginCard = adaptiveCard.CreateAttachment(2);
+                await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(loginCard), cancellationToken);
+                await Task.Delay(500);
+            }
+            await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
         }
-        private async Task<DialogTurnResult> IntentSolicitarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        private async Task IntentCrearCuenta(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            return await stepContext.BeginDialogAsync(nameof(CrearTramiteDialog),cancellationToken:cancellationToken);
-        }   
+            AdaptiveCard adaptiveCard = new AdaptiveCard();
+            var welcomeCard = adaptiveCard.CreateAttachment(1);
+            await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(welcomeCard), cancellationToken);
+            await Task.Delay(500);
+            await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
+        }
+        private async Task IntentConsultarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await buttonsTramite(stepContext, cancellationToken);
+        }
+        private async Task IntentRealizarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await buttonsTramite(stepContext, cancellationToken);
+        }
+        private async Task IntentRealizarTramiteLicencia(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await buttonsLicenciaFuncionamiento(stepContext, cancellationToken);
+        }
+        private async Task IntentRealizarTramiteAlcabala(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await buttonsImpuestoAlcabala(stepContext, cancellationToken);
+        }
+        private async Task IntentRealizarTramiteVehicular(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            await buttonsImpuestoVehicular(stepContext, cancellationToken);
+        }
         private async Task<DialogTurnResult> IntentCalificar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
             return await stepContext.BeginDialogAsync(nameof(QualificationDialog), cancellationToken: cancellationToken);
         }
 
-        private async Task IntentContactar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
-        {
-            string phoneDetail = $"Nuestro números de atención son los siguientes:{Environment.NewLine}"+
-                $"+51 66778888{Environment.NewLine} +51 456789258";
-
-            string addresDetail = $"Av.Saenz Peña 199, Callao, Lima";
-
-            await stepContext.Context.SendActivityAsync(phoneDetail,cancellationToken:cancellationToken);
-            await Task.Delay(1000);
-            await stepContext.Context.SendActivityAsync(addresDetail, cancellationToken: cancellationToken);
-            await Task.Delay(1000);
-            await stepContext.Context.SendActivityAsync("En que más te puedo ayudar?", cancellationToken: cancellationToken);
-        }
-
-        private async Task IntentVerOpciones(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
-        {
-            await stepContext.Context.SendActivityAsync("Aqui tengo mis opciones:", cancellationToken: cancellationToken);
-            await MainOptionsCard.ToShow(stepContext, cancellationToken);
-        }
-
         private async Task IntentSaludar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync("Hola, que gusto verte.",cancellationToken:cancellationToken);
+            await buttonsInicio(stepContext, cancellationToken, $"Hola, que gusto verte, en que te puedo ayudar {Globales.no_nombres}?");
         }
 
         private async Task IntentAgradecer(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync("No te preocupes me gusta ayudar", cancellationToken: cancellationToken);
+            await buttonsInicio(stepContext, cancellationToken, $"gracias a ti {Globales.no_nombres}, en que te puedo ayudar?");
         }
 
         private async Task IntentDespedir(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync("Espero verte pronto.", cancellationToken: cancellationToken);
+            await buttonsInicio(stepContext, cancellationToken, $"Espero verte pronto {Globales.no_nombres}.");
         }
 
         private async Task IntentNone(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
@@ -182,12 +193,12 @@ namespace MuniBot.Dialogs
             if (score >= 0.5)
             {
                 await stepContext.Context.SendActivityAsync(response, cancellationToken: cancellationToken);
+                await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
             }
             else
             {
-                await stepContext.Context.SendActivityAsync("No entiendo lo que me dices.", cancellationToken: cancellationToken);
-                await Task.Delay(1000);
-                await IntentVerOpciones(stepContext,luisResult,cancellationToken:cancellationToken);
+                await Task.Delay(500);
+                await buttonsInicio(stepContext, cancellationToken, $"No entiendo lo que me dices, puedes utilizar los botones de la parte inferior.");
             }
         }
 
@@ -198,6 +209,88 @@ namespace MuniBot.Dialogs
         {
             return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
         }
-    }
 
+        private static async Task buttonsInicio(WaterfallStepContext stepContext, CancellationToken cancellationToken, string message)
+        {
+            var reply = MessageFactory.Text($"{message}");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Trámites", Type = ActionTypes.ImBack, Value = "Seleccionar Trámite" },
+                    new CardAction() { Title = "Iniciar Sesion", Type = ActionTypes.ImBack, Value = "Iniciar Sesion" },
+                    new CardAction() { Title = "Crear una cuenta", Type = ActionTypes.ImBack, Value = "Crear un cuenta" },
+                    new CardAction() { Title = "Contactos", Type = ActionTypes.ImBack, Value = "Contactos" },
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+        private static async Task buttonsTramite(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var reply = MessageFactory.Text($"Que trámite deseas realizar {Globales.no_nombres}?");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Inicio", Type = ActionTypes.ImBack, Value = "Inicio" },
+                    new CardAction() { Title = "Licencia Funcionamiento", Type = ActionTypes.ImBack, Value = "Trámite Licencia de Funcionamiento" },
+                    new CardAction() { Title = "Impuesto Alcabala", Type = ActionTypes.ImBack, Value = "Trámite Impuesto de Alcabala" },
+                    new CardAction() { Title = "Impuesto Vehicular", Type = ActionTypes.ImBack, Value = "Trámite Impuesto Vehicular"},
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+        private static async Task buttonsLicenciaFuncionamiento(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var reply = MessageFactory.Text($"Selecciona una opción");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Inicio", Type = ActionTypes.ImBack, Value = "Inicio" },
+                    new CardAction() { Title = "Nueva Licencia", Type = ActionTypes.ImBack, Value = "Nuevo Trámite Licencia de Funcionamiento" },
+                    new CardAction() { Title = "Consultar Licencias", Type = ActionTypes.ImBack, Value = "Consultar Licencias de Funcionamiento" },
+                    new CardAction() { Title = "Requisitos", Type = ActionTypes.ImBack, Value = "Requisitos Licencia de Funcionamiento" },
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+        private static async Task buttonsImpuestoAlcabala(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var reply = MessageFactory.Text($"Selecciona una opción");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Inicio", Type = ActionTypes.ImBack, Value = "Inicio" },
+                    new CardAction() { Title = "Nuevo Trámite", Type = ActionTypes.ImBack, Value = "Nuevo Trámite Impuesto de Alcabala" },
+                    new CardAction() { Title = "Consultar Trámites", Type = ActionTypes.ImBack, Value = "Consultar Trámites Impuesto de Alcabala" },
+                    new CardAction() { Title = "Requisitos", Type = ActionTypes.ImBack, Value = "Requisitos Impuesto de Alcabala" },
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+        private static async Task buttonsImpuestoVehicular(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var reply = MessageFactory.Text($"Selecciona una opción");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Inicio", Type = ActionTypes.ImBack, Value = "Inicio" },
+                    new CardAction() { Title = "Nuevo Trámite", Type = ActionTypes.ImBack, Value = "Nuevo Trámite Impuesto Vehicular" },
+                    new CardAction() { Title = "Consultar Trámites", Type = ActionTypes.ImBack, Value = "Consultar Trámites Impuesto Vehicular" },
+                    new CardAction() { Title = "Requisitos", Type = ActionTypes.ImBack, Value = "Requisitos Impuesto Vehicular" },
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+
+
+    }
 }

@@ -44,7 +44,8 @@ namespace MuniBot
             services.AddSingleton(conversationState);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddDbContext<DataBaseService>(options => {
+            services.AddDbContext<DataBaseService>(options =>
+            {
                 options.UseCosmos(
                     Configuration["CosmosEndPoint"],
                     Configuration["CosmosKey"],

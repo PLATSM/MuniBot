@@ -8,6 +8,15 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace MuniBot
 {
+    static class Globales
+    {
+        public static bool OnSesion = false;
+        public static string co_documento_identidad = string.Empty;
+        public static string nu_documento_identidad = string.Empty;
+        public static string no_nombres = string.Empty;
+        public static string no_apellido_paterno = string.Empty;
+        public static string idCard = string.Empty;
+    }
     public class Program
     {
         public static void Main(string[] args)

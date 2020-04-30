@@ -64,7 +64,7 @@ namespace MuniBot.Dialogs.Qualification
             await Task.Delay(1000);
             await stepContext.Context.SendActivityAsync("En que más te puedo ayudar?", cancellationToken: cancellationToken);
             // Save Qualification
-            await SaveQualification(stepContext,options);
+            // await SaveQualification(stepContext,options);
             return await stepContext.ContinueDialogAsync(cancellationToken:cancellationToken);
         }
 

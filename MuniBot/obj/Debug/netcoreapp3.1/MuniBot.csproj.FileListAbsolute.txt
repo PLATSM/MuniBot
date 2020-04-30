@@ -65,6 +65,7 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bcl.Asyn
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.AI.Luis.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.AI.QnA.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.Azure.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.Dialogs.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.Integration.AspNet.Core.dll
@@ -101,6 +102,7 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Recogniz
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\SendGrid.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
@@ -122,9 +124,10 @@ D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\staticwebassets\Mu
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.pdb
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.genruntimeconfig.cache
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\SendGrid.dll
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Microsoft.Bot.Builder.AI.QnA.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Common\json\LoginCard.json
+D:\UPC\Proyecto Tesis\MuniBot\MuniBot\bin\Debug\netcoreapp3.1\Bot.Builder.Community.Dialogs.Prompts.dll
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csproj.CoreCompileInputs.cache
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cs
 D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.MvcApplicationPartsAssemblyInfo.cache
-D:\UPC\Proyecto Tesis\MuniBot\MuniBot\obj\Debug\netcoreapp3.1\MuniBot.csprojAssemblyReference.cache

@@ -22,11 +22,11 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Impuesto Alcabala",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/01_ImpuestoAlcabala.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/01_ImpuestoAlcabala.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Realizar Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack},
-                    new CardAction(){Title = "Ver Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack}
+                    new CardAction(){Title = "Consultar Trámite",Value="",Type=ActionTypes.ImBack}
                 }
             };
 
@@ -37,8 +37,8 @@ namespace MuniBot.Common.Cards
                 Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/02_LicenciaFuncionamiento.png") },
                 Buttons = new List<CardAction>()
                 {
-                    new CardAction(){Title = "Realizar Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack},
-                    new CardAction(){Title = "Ver Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack}
+                    new CardAction(){Title = "Realizar Trámite",Value="",Type=ActionTypes.ImBack},
+                    new CardAction(){Title = "Consultar Trámite",Value="",Type=ActionTypes.ImBack}
                 }
             };
 
@@ -49,8 +49,8 @@ namespace MuniBot.Common.Cards
                 Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/03_ImpuestoVehicular.png") },
                 Buttons = new List<CardAction>()
                 {
-                    new CardAction(){Title = "Realizar Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack},
-                    new CardAction(){Title = "Ver Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack}
+                    new CardAction(){Title = "Realizar Trámite",Value="",Type=ActionTypes.ImBack},
+                    new CardAction(){Title = "Consultar Trámite",Value="",Type=ActionTypes.ImBack}
                 }
             };
 
@@ -61,8 +61,7 @@ namespace MuniBot.Common.Cards
                 Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/04_EstadoCuenta.png") },
                 Buttons = new List<CardAction>()
                 {
-                    new CardAction(){Title = "Realizar Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack},
-                    new CardAction(){Title = "Ver Trámite",Value="Realizar Trámite",Type=ActionTypes.ImBack}
+                    new CardAction(){Title = "Consultar",Value="",Type=ActionTypes.ImBack},
                 }
             };
 
@@ -73,7 +72,7 @@ namespace MuniBot.Common.Cards
                 Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/05_CentroContactos.png") },
                 Buttons = new List<CardAction>()
                 {
-                    new CardAction(){Title = "Contactos",Value="Centro de Contactos",Type=ActionTypes.ImBack},
+                    new CardAction(){Title = "Consultar",Value="Centro de Contactos",Type=ActionTypes.ImBack},
                     new CardAction(){Title = "Sitio Web",Value="http://www.municallao.gob.pe/index.php/locales-municipales",Type=ActionTypes.OpenUrl}
                 }
             };
@@ -89,6 +88,17 @@ namespace MuniBot.Common.Cards
                 }
             };
 
+            var cardRegistrarCiudadano = new HeroCard
+            {
+                Title = "Registrar Ciudadano",
+                Subtitle = "Opciones",
+                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/07_RegistrarUsuario.png") },
+                Buttons = new List<CardAction>()
+                {
+                    new CardAction(){Title = "Registrar Ciudadano",Value="Registrar Ciudadano",Type=ActionTypes.ImBack}
+                }
+            };
+
             var optionAttachments = new List<Attachment>()
             {
                 cardImpuestoAlcabala.ToAttachment(),
@@ -96,7 +106,8 @@ namespace MuniBot.Common.Cards
                 cardImpuestoVehicular.ToAttachment(),
                 cardEstadoCuenta.ToAttachment(),
                 cardCentroContacto.ToAttachment(),
-                cardCalificarBot.ToAttachment()
+                cardCalificarBot.ToAttachment(),
+                cardRegistrarCiudadano.ToAttachment()
             };
             var reply = MessageFactory.Attachment(optionAttachments);
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
