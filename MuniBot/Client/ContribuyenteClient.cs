@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MuniBot.Client.Entities;
+using MuniBot.Client.Entities.DataCard;
 using Newtonsoft.Json;
 
 namespace MuniBot.Client
@@ -118,10 +119,15 @@ namespace MuniBot.Client
             return response;
         }
 
-        public Response<ContribuyenteDTO> GetAsync(ContribuyenteDTO contribuyente)
+        public Response<ContribuyenteDTO> GetAsync(int id_contribuyente, string no_token)
         {
-
             var response = new Response<ContribuyenteDTO>();
+
+            ContribuyenteDTO contribuyente = new ContribuyenteDTO
+            {
+                id_contribuyente = id_contribuyente,
+                no_token = no_token
+            };
 
             var json = JsonConvert.SerializeObject(contribuyente);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -129,7 +135,7 @@ namespace MuniBot.Client
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:4020/api/");
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + contribuyente.Token);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + contribuyente.no_token);
                 var responseTask = client.PostAsync("Contribuyente/GetAsync", data);
                 responseTask.Wait();
 
@@ -141,6 +147,35 @@ namespace MuniBot.Client
             }
             return response;
         }
+        public Response<DataJsonDTO> GetJsonAsync(int id_contribuyente, string no_token)
+        {
+            var response = new Response<DataJsonDTO>();
+
+            ContribuyenteDTO contribuyente = new ContribuyenteDTO
+            {
+                id_contribuyente = id_contribuyente,
+                no_token = no_token
+            };
+
+            var json = JsonConvert.SerializeObject(contribuyente);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:4020/api/");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + contribuyente.no_token);
+                var responseTask = client.PostAsync("Contribuyente/GetJsonAsync", data);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                var readTask = result.Content.ReadAsAsync<Response<DataJsonDTO>>();
+                readTask.Wait();
+                response = readTask.Result;
+
+            }
+            return response;
+        }
+
 
     }
 }

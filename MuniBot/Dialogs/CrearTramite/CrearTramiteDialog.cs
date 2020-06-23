@@ -1,15 +1,11 @@
 ﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
-using Microsoft.EntityFrameworkCore;
 using MuniBot.Common.Models.BotState;
 using MuniBot.Common.Models.Tramite;
 using MuniBot.Common.Models.User;
-using MuniBot.Data;
-using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,20 +13,15 @@ namespace MuniBot.Dialogs.CrearTramite
 {
     public class CrearTramiteDialog : ComponentDialog
     {
-        private readonly IDataBaseService _databaseService;
         public static UserModel newUserModel = new UserModel();
         public static TramiteModel tramiteModel = new TramiteModel();
-
-        private readonly ISendGridEmailService _sendGridEmailService;
 
         private readonly IStatePropertyAccessor<BotStateModel> _userState;
 
 
-        public CrearTramiteDialog(IDataBaseService databaseService, UserState userState, ISendGridEmailService sendGridEmailService)
+        public CrearTramiteDialog(UserState userState)
         {
-            _databaseService = databaseService;
             _userState = userState.CreateProperty<BotStateModel>(nameof(BotStateModel));
-            _sendGridEmailService = sendGridEmailService;
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -147,78 +138,8 @@ namespace MuniBot.Dialogs.CrearTramite
         private async Task<DialogTurnResult> FinalProcess(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var userConfirmation = stepContext.Context.Activity.Text;
-
-            if (userConfirmation.ToLower().Equals("si"))
-            {
-                //SAVE DATABASE
-                string userId = stepContext.Context.Activity.From.Id;
-                var userModel = await _databaseService.User.FirstOrDefaultAsync(x => x.id == userId);
-
-                var userStateModel = await _userState.GetAsync(stepContext.Context,() => new BotStateModel());
-
-                if (!userStateModel.tramiteData)
-                {
-                    //UPDATE USER
-                    userModel.phone = newUserModel.phone;
-                    userModel.fullName = newUserModel.fullName;
-                    userModel.email = newUserModel.email;
-
-                    _databaseService.User.Update(userModel);
-                    await _databaseService.SaveAsync();
-                }
-
-                // SAVE TRAMITE
-                tramiteModel.id = Guid.NewGuid().ToString();
-                tramiteModel.idUser = userId;
-                await _databaseService.Tramite.AddAsync(tramiteModel);
-                await _databaseService.SaveAsync();
-
-                await stepContext.Context.SendActivityAsync("Tu trámite se guardó con éxito.",cancellationToken:cancellationToken);
-
-                userStateModel.tramiteData = true;
-
-                // SHOW SUMMARY
-                string summaryTramite = $"Para: {userModel.fullName}" +
-                    $"{Environment.NewLine} Teléfono:  {userModel.phone}" +
-                    $"{Environment.NewLine} Email:  {userModel.email}" +
-                    $"{Environment.NewLine} Fecha:  {tramiteModel.date}" +
-                    $"{Environment.NewLine} Hora :  {tramiteModel.time}";
-
-                await stepContext.Context.SendActivityAsync(summaryTramite, cancellationToken: cancellationToken);
-
-                //SEND MAIL
-                await SendEmail(userModel, tramiteModel);
-
-                await Task.Delay(1000);
-                await stepContext.Context.SendActivityAsync("En que más puedo ayudarte", cancellationToken: cancellationToken);
-                tramiteModel = new TramiteModel();
-
-            }
-            else
-            {
-                await stepContext.Context.SendActivityAsync("No hay problema, será la próxima",cancellationToken:cancellationToken);
-            }
             return await stepContext.ContinueDialogAsync(cancellationToken:cancellationToken);
         }
-
-        private async Task SendEmail(UserModel userModel, TramiteModel tramiteModel)
-        {
-            string contentEmail = $"Hola  {userModel.fullName},<b/><b>Se registró un trámite con la siguiente información" +
-                $"<br>Fecha:{tramiteModel.date.ToShortDateString()}" +
-                $"<br>Hora: {tramiteModel.time}<b/><b>Saludos.";
-
-            await _sendGridEmailService.Execute(
-                "U201517696@upc.edu.pe",
-                "Ricardo Chavez",
-                userModel.email,
-                userModel.fullName,
-                "Tramite en proceso.",
-                "",
-                contentEmail
-
-                );
-        }
-
         private Activity CreateButtonsTime()
         {
             var reply = MessageFactory.Text("Ahora selecciona la hora");

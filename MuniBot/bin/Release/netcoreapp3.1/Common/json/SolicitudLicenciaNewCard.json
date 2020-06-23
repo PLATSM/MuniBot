@@ -1,0 +1,298 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "$data": "{Contribuyente}",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Registro Solicitud de Licencia de Funcionamiento",
+      "horizontalAlignment": "Center",
+      "size": "Medium"
+    },
+
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Solicitante",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Documento",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Direccion",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Telefono",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Correo",
+              "spacing": "None"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "{no_contribuyente}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{co_documento_identidad} {nu_documento_identidad}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_direccion}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_telefono}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_correo_electronico}",
+              "spacing": "None"
+            }
+          ]
+        }
+      ]
+    },
+
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Tipo de Licencia",
+        "separator": true
+      },
+      {
+        "type": "Input.ChoiceSet",
+        "id": "cboTipoLicencia",
+        "value": "0001",
+        "spacing": "None",
+        "choices": [
+          {
+            "$data": "{Survey.questions[0].items}",
+            "title": "Indeterminada",
+            "value": "0001"
+          },
+          {
+            "$data": "{Survey.questions[1].items}",
+            "title": "Temporal",
+            "value": "0002"
+          }
+        ]
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Nombre Comercial"
+      },
+      {
+        "type": "Input.Text",
+        "placeholder": "",
+        "style": "text",
+        "maxLength": 100,
+        "id": "txtNombreComercial",
+        "spacing": "None"
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Clase"
+      },
+      {
+        "type": "Input.ChoiceSet",
+        "id": "cboClase",
+        "value": "0000",
+        "spacing": "None",
+        "choices": [
+          {
+            "title": "(Seleccione)",
+            "value": "0000"
+          },
+          {
+            "title": "Industria",
+            "value": "0001"
+          },
+          {
+            "title": "Comunicaciones",
+            "value": "0002"
+          },
+          {
+            "title": "Comercio",
+            "value": "0003"
+          },
+          {
+            "title": "Servicios",
+            "value": "0004"
+          },
+          {
+            "title": "Educacion",
+            "value": "0005"
+          },
+          {
+            "title": "Salud",
+            "value": "0006"
+          }
+        ]
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Sub Clase"
+      },
+      {
+        "type": "Input.ChoiceSet",
+        "id": "cboSubClase",
+        "value": "0000",
+        "spacing": "None",
+        "choices": [
+          {
+            "title": "(Seleccione)",
+            "value": "0000"
+          },
+          {
+            "$data": "{Survey.questions[0].items}",
+            "title": "Alimentos",
+            "value": "0001"
+          },
+          {
+            "$data": "{Survey.questions[1].items}",
+            "title": "Equipos",
+            "value": "0002"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Insumos",
+            "value": "0003"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Accesorios",
+            "value": "0004"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Ropa",
+            "value": "0005"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Juguetes",
+            "value": "0006"
+          }
+        ]
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Categoria"
+      },
+      {
+        "type": "Input.ChoiceSet",
+        "id": "cboCategoria",
+        "value": "0000",
+        "spacing": "None",
+        "choices": [
+          {
+            "title": "(Seleccione)",
+            "value": "0000"
+          },
+          {
+            "$data": "{Survey.questions[1].items}",
+            "title": "Bodega",
+            "value": "0001"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Mercado",
+            "value": "0002"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Minimarket",
+            "value": "0003"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Centro Comercial",
+            "value": "0004"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Farmacia",
+            "value": "0005"
+          },
+          {
+            "$data": "{Survey.questions[2].items}",
+            "title": "Restaurante",
+            "value": "0006"
+          }
+        ]
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Direccion del Establecimiento"
+      },
+      {
+        "type": "Input.Text",
+        "placeholder": "",
+        "style": "text",
+        "maxLength": 200,
+        "id": "txtDireccionEstablecimiento",
+        "spacing": "None"
+      },
+      {
+        "type": "TextBlock",
+        "size": "Default",
+        "text": "Area m2"
+      },
+      {
+        "type": "Input.Number",
+        "placeholder": "",
+        "style": "text",
+        "maxLength": 10,
+        "id": "txArea",
+        "required ": " true ",
+        "requiredError ": "Es obligatorio.",
+        "spacing": "None"
+      }
+    ],
+    "actions": [
+      {
+        "type": "Action.Submit",
+        "title": "Ok",
+        "data": {
+          "id": "SolicitudLicenciaNewCard"
+        }
+      }
+    ]
+  } 

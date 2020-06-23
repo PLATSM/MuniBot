@@ -1,0 +1,58 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Iniciar Sesion",
+      "horizontalAlignment": "Center",
+      "size": "Medium"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "cboTipoDocumento",
+      "value": "DNI",
+      "choices": [
+        {
+          "$data": "{Survey.questions[0].items}",
+          "title": "DNI",
+          "value": "DNI"
+        },
+        {
+          "$data": "{Survey.questions[1].items}",
+          "title": "RUC",
+          "value": "RUC"
+        },
+        {
+          "$data": "{Survey.questions[2].items}",
+          "title": "CEX",
+          "value": "CEX"
+        }
+      ]
+    },
+    {
+      "type": "Input.Text",
+      "id": "txtNumeroDocumento",
+      "placeholder": "Numero Documento de Identidad",
+      "maxLength": 20
+    },
+    {
+      "type": "Input.Text",
+      "id": "txtContrasena",
+      "style": "password",
+      "placeholder": "Contrasena",
+      "maxLength": 20
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Enviar",
+      "data": {
+        "id": "LoginCard"
+      }
+    }
+  ]
+}

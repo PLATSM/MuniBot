@@ -11,10 +11,10 @@ namespace MuniBot
     static class Globales
     {
         public static bool OnSesion = false;
-        public static string co_documento_identidad = string.Empty;
-        public static string nu_documento_identidad = string.Empty;
-        public static string no_nombres = string.Empty;
-        public static string no_apellido_paterno = string.Empty;
+        public static int id_empresa = 1;
+        public static int id_contribuyente = 0;
+        public static string no_token = string.Empty;
+        public static string no_contribuyente = string.Empty;
         public static string idCard = string.Empty;
     }
     public class Program

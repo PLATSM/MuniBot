@@ -1,5 +1,5 @@
 {
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
   "version": "1.0",
   "body": [
@@ -13,22 +13,22 @@
     {
       "type": "Input.ChoiceSet",
       "id": "cboTipoDocumento",
-      "value": "0001",
+      "value": "DNI",
       "choices": [
         {
           "$data": "{Survey.questions[0].items}",
           "title": "DNI",
-          "value": "0001"
+          "value": "DNI"
         },
         {
           "$data": "{Survey.questions[1].items}",
           "title": "RUC",
-          "value": "0002"
+          "value": "RUC"
         },
         {
           "$data": "{Survey.questions[2].items}",
           "title": "CEX",
-          "value": "0003"
+          "value": "CEX"
         }
       ]
     },
@@ -51,7 +51,7 @@
       "type": "Action.Submit",
       "title": "Enviar",
       "data": {
-        "id": "loginCard"
+        "id": "LoginCard"
       }
     }
   ]

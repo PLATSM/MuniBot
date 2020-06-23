@@ -7,7 +7,6 @@ using MuniBot.Dialogs.CrearTramite;
 using MuniBot.Dialogs.Qualification;
 using MuniBot.Infraestructure.Luis;
 using MuniBot.Infraestructure.QnAMakerAI;
-using MuniBot.Infraestructure.SendGrid;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,15 +23,13 @@ namespace MuniBot.Dialogs
     {
         private readonly ILuisService _luisService;
         private readonly IQnAMakerAIService _qnaMakerAIService;
-        private readonly IDataBaseService _databaseService;
-        private readonly ISendGridEmailService _sendGridEmailService;
+        // private readonly IDataBaseService _databaseService;
 
-        public RootDialog(ILuisService luisService, IDataBaseService databaseService,UserState userState, ISendGridEmailService sendGridEmailService, IQnAMakerAIService qnaMakerAIService)
+        public RootDialog(ILuisService luisService, StateBotAccessors accessors, IQnAMakerAIService qnaMakerAIService)
         {
             _luisService = luisService;
             _qnaMakerAIService = qnaMakerAIService;
-            _databaseService = databaseService;
-            _sendGridEmailService = sendGridEmailService;
+            // _databaseService = databaseService;
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -40,7 +37,6 @@ namespace MuniBot.Dialogs
                 FinalProcess
             };
             //AddDialog(new QualificationDialog(_databaseService));
-            //AddDialog(new CrearTramiteDialog(_databaseService,userState, _sendGridEmailService));
             //AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog),waterfallSteps));
             InitialDialogId = nameof(WaterfallDialog);
@@ -57,10 +53,10 @@ namespace MuniBot.Dialogs
         {
             var topIntent = luisResult.GetTopScoringIntent();
 
-            string activityText = stepContext.Context.Activity.Text.ToLower();
-
-            if (string.IsNullOrEmpty(activityText) == false)
+            if (string.IsNullOrEmpty(stepContext.Context.Activity.Text) == false)
             {
+                string activityText = stepContext.Context.Activity.Text.ToLower();
+
                 if (activityText.IndexOf("requisito", 0) > -1)
                 {
                     topIntent.score = 0;
@@ -107,6 +103,9 @@ namespace MuniBot.Dialogs
                     case "Login":
                         await IntentLogin(stepContext, luisResult, cancellationToken);
                         break;
+                    case "CrearTramiteLicencia":
+                        await IntentCrearTramiteLicencia(stepContext, luisResult, cancellationToken);
+                        break;
                     case "None":
                         await IntentNone(stepContext, luisResult, cancellationToken);
                         break;
@@ -124,24 +123,28 @@ namespace MuniBot.Dialogs
         {
             if (Globales.OnSesion)
             {
-                await buttonsInicio(stepContext, cancellationToken, $"Su sesión ya fue iniciada como {Globales.no_nombres} {Globales.no_apellido_paterno}");
+                await buttonsInicio(stepContext, cancellationToken, $"Su sesión ya fue iniciada como {Globales.no_contribuyente}");
             }
             else
             {
-                AdaptiveCard adaptiveCard = new AdaptiveCard();
-                var loginCard = adaptiveCard.CreateAttachment(2);
-                await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(loginCard), cancellationToken);
+                AdaptiveCardList adaptiveCard = new AdaptiveCardList();
+                var nameCard = adaptiveCard.CreateAttachment(2,"");
+                await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(nameCard), cancellationToken);
                 await Task.Delay(500);
             }
-            await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
+            await buttonsInicio(stepContext, cancellationToken, "");
         }
         private async Task IntentCrearCuenta(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            AdaptiveCard adaptiveCard = new AdaptiveCard();
-            var welcomeCard = adaptiveCard.CreateAttachment(1);
-            await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(welcomeCard), cancellationToken);
+            await buttonsTipoPersona(stepContext, cancellationToken);
+        }
+        private async Task IntentCrearTramiteLicencia(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
+        {
+            AdaptiveCardList adaptiveCard = new AdaptiveCardList();
+            var nameCard = adaptiveCard.CreateAttachment(3,"");
+            await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(nameCard), cancellationToken);
             await Task.Delay(500);
-            await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
+            await buttonsInicio(stepContext, cancellationToken, "");
         }
         private async Task IntentConsultarTramite(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
@@ -170,17 +173,17 @@ namespace MuniBot.Dialogs
 
         private async Task IntentSaludar(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await buttonsInicio(stepContext, cancellationToken, $"Hola, que gusto verte, en que te puedo ayudar {Globales.no_nombres}?");
+            await buttonsInicio(stepContext, cancellationToken, $"Hola, que gusto verte, en que te puedo ayudar?");
         }
 
         private async Task IntentAgradecer(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await buttonsInicio(stepContext, cancellationToken, $"gracias a ti {Globales.no_nombres}, en que te puedo ayudar?");
+            await buttonsInicio(stepContext, cancellationToken, $"gracias a ti, en que te puedo ayudar?");
         }
 
         private async Task IntentDespedir(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
         {
-            await buttonsInicio(stepContext, cancellationToken, $"Espero verte pronto {Globales.no_nombres}.");
+            await buttonsInicio(stepContext, cancellationToken, $"Espero verte pronto {Globales.no_contribuyente}.");
         }
 
         private async Task IntentNone(WaterfallStepContext stepContext, RecognizerResult luisResult, CancellationToken cancellationToken)
@@ -193,7 +196,7 @@ namespace MuniBot.Dialogs
             if (score >= 0.5)
             {
                 await stepContext.Context.SendActivityAsync(response, cancellationToken: cancellationToken);
-                await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar {Globales.no_nombres}?");
+                await buttonsInicio(stepContext, cancellationToken, $"En que te puedo ayudar?");
             }
             else
             {
@@ -220,7 +223,7 @@ namespace MuniBot.Dialogs
                 {
                     new CardAction() { Title = "Trámites", Type = ActionTypes.ImBack, Value = "Seleccionar Trámite" },
                     new CardAction() { Title = "Iniciar Sesion", Type = ActionTypes.ImBack, Value = "Iniciar Sesion" },
-                    new CardAction() { Title = "Crear una cuenta", Type = ActionTypes.ImBack, Value = "Crear un cuenta" },
+                    new CardAction() { Title = "Crear una cuenta", Type = ActionTypes.ImBack, Value = "Crear una cuenta" },
                     new CardAction() { Title = "Contactos", Type = ActionTypes.ImBack, Value = "Contactos" },
                 },
             };
@@ -228,7 +231,7 @@ namespace MuniBot.Dialogs
         }
         private static async Task buttonsTramite(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            var reply = MessageFactory.Text($"Que trámite deseas realizar {Globales.no_nombres}?");
+            var reply = MessageFactory.Text($"Que trámite deseas realizar?");
 
             reply.SuggestedActions = new SuggestedActions()
             {
@@ -286,6 +289,21 @@ namespace MuniBot.Dialogs
                     new CardAction() { Title = "Nuevo Trámite", Type = ActionTypes.ImBack, Value = "Nuevo Trámite Impuesto Vehicular" },
                     new CardAction() { Title = "Consultar Trámites", Type = ActionTypes.ImBack, Value = "Consultar Trámites Impuesto Vehicular" },
                     new CardAction() { Title = "Requisitos", Type = ActionTypes.ImBack, Value = "Requisitos Impuesto Vehicular" },
+                },
+            };
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+        }
+        private static async Task buttonsTipoPersona(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var reply = MessageFactory.Text($"Selecciona un tipo de persona");
+
+            reply.SuggestedActions = new SuggestedActions()
+            {
+                Actions = new List<CardAction>()
+                {
+                    new CardAction() { Title = "Inicio", Type = ActionTypes.ImBack, Value = "Inicio" },
+                    new CardAction() { Title = "Persona Natural", Type = ActionTypes.ImBack, Value = "Cuenta Persona Natural" },
+                    new CardAction() { Title = "Persona Juridica", Type = ActionTypes.ImBack, Value = "Cuenta Persona Juridica" },
                 },
             };
             await stepContext.Context.SendActivityAsync(reply, cancellationToken);

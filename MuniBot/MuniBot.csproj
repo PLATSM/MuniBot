@@ -11,27 +11,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Common\json\createUserCard.json" />
+    <Content Remove="Common\json\PersonaNaturalNewCard.json" />
     <Content Remove="Common\json\welcomeCard.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Common\json\createUserCard.json" />
-    <EmbeddedResource Include="Common\json\welcomeCard.json" />
+    <EmbeddedResource Include="Common\json\PersonaNaturalNewCard.json" />
+    <EmbeddedResource Include="Common\json\WelcomeCard.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bot.Builder.Community.Dialogs.Prompts" Version="4.8.2" />
+    <PackageReference Include="AdaptiveCards" Version="1.2.4" />
+    <PackageReference Include="AdaptiveCards.Templating" Version="0.1.0-alpha1" />
+    <PackageReference Include="Bot.Builder.Community.Dialogs.Prompts" Version="4.9.0" />
+    <PackageReference Include="Microsoft.AdaptiveCards" Version="0.5.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Bot.Builder.AI.Luis" Version="4.8.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.AI.QnA" Version="4.8.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.8.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.8.0" />
-    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.8.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Bot.Builder.AI.Luis" Version="4.9.3" />
+    <PackageReference Include="Microsoft.Bot.Builder.AI.QnA" Version="4.9.3" />
+    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.9.3" />
+    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.9.3" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.9.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.1.5" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Sendgrid" Version="9.13.2" />
+    <PackageReference Include="Sendgrid" Version="9.16.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
     <ItemGroup>
@@ -40,6 +44,6 @@
     </Content>
   </ItemGroup>
 
-    <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+    <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

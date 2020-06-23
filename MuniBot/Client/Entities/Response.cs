@@ -1,4 +1,4 @@
-﻿namespace MuniBot.Client
+﻿namespace MuniBot.Client.Entities
 {
     public class Response<T>
     {

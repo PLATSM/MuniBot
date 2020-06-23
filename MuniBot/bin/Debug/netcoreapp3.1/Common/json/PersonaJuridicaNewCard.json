@@ -1,0 +1,93 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "horizontalAlignment": "Center",
+      "size": "Medium",
+      "text": "Crear Cuenta - Persona Juridica",
+      "type": "TextBlock",
+      "weight": "Bolder"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "cboTipoDocumento",
+      "value": "RUC",
+      "choices": [
+        {
+          "$data": "{Survey.questions[1].items}",
+          "title": "RUC",
+          "value": "RUC"
+        }
+      ]
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Numero Documento de Identidad",
+      "style": "text",
+      "maxLength": 0,
+      "id": "txtDocumentoIdentidad"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Razon Social",
+      "style": "text",
+      "maxLength": 100,
+      "id": "txtRazonSocial",
+      "required ": " true ",
+      "requiredError ": " Se requiere Razon Social."
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Representante Legal",
+      "style": "text",
+      "maxLength": 50,
+      "id": "txtRepresentanteLegal"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Correo Electronico",
+      "style": "Email",
+      "maxLength": 255,
+      "id": "txtCorreoElectronico"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Telefono",
+      "style": "text",
+      "maxLength": 20,
+      "id": "txtTelefono"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Direccion",
+      "style": "text",
+      "maxLength": 100,
+      "id": "txtDireccion"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Contrasena",
+      "style": "text",
+      "maxLength": 20,
+      "id": "txtContrasena"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "Verficar contrasena",
+      "style": "text",
+      "maxLength": 20,
+      "id": "txtVerificarContrasena"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Ok",
+      "data": {
+        "id": "PersonaJuridicaNewCard"
+      }
+    }
+  ]
+} 

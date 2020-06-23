@@ -1,0 +1,204 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "$data": "",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Registro Solicitud de Licencia de Funcionamiento",
+      "horizontalAlignment": "Center",
+      "size": "Medium"
+    },
+
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Solicitante",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Documento",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Direccion",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Telefono",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Correo",
+              "spacing": "None"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "{no_contribuyente}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{co_documento_identidad} {nu_documento_identidad}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_direccion}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_telefono}",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_correo_electronico}",
+              "spacing": "None"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Tipo de Licencia",
+      "separator": true
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "cboTipoLicencia",
+      "value": "0001",
+      "spacing": "None",
+      "choices": [
+        {
+          "$data": "{Survey.questions[0].items}",
+          "title": "Indeterminada",
+          "value": "0001"
+        },
+        {
+          "$data": "{Survey.questions[1].items}",
+          "title": "Temporal",
+          "value": "0002"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Nombre Comercial"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "",
+      "style": "text",
+      "maxLength": 100,
+      "id": "txtNombreComercial",
+      "spacing": "None"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Clase"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "cboClase",
+      "value": "0",
+      "spacing": "None",
+      "choices": [
+        {
+          "$data": "{$root.Clase}",
+          "title": "{no_clase}",
+          "value": "{co_clase}"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Sub Clase"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "cboSubClase",
+      "value": "0",
+      "spacing": "None",
+      "choices": [
+        {
+          "$data": "{$root.Clase}",
+          "title": "{no_subclase}",
+          "value": "{co_subclase}"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Categoria"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Direccion del Establecimiento"
+    },
+    {
+      "type": "Input.Text",
+      "placeholder": "",
+      "style": "text",
+      "maxLength": 200,
+      "id": "txtDireccionEstablecimiento",
+      "spacing": "None"
+    },
+    {
+      "type": "TextBlock",
+      "size": "Default",
+      "text": "Area m2"
+    },
+    {
+      "type": "Input.Number",
+      "placeholder": "",
+      "style": "text",
+      "maxLength": 10,
+      "id": "txArea",
+      "required ": " true ",
+      "requiredError ": "Es obligatorio.",
+      "spacing": "None"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Ok",
+      "data": {
+        "id": "SolicitudLicenciaAddCard"
+      }
+    }
+  ]
+} 

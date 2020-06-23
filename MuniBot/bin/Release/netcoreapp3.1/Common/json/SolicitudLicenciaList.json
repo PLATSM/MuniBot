@@ -1,0 +1,179 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "$data": "",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Solicitud de Licencia de Funcionamiento",
+      "horizontalAlignment": "Center",
+      "size": "Medium"
+    },
+    {
+      "type": "FactSet",
+      "$data": "{$root.Header}",
+      "spacing": "None",
+      "facts": [
+        {
+          "title": "{no_field}",
+          "value": "{no_value}"
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Numero",
+              "spacing": "None",
+              "size": "Small",
+              "id": ""
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_solicitud}",
+              "spacing": "None",
+              "$data": "{$root.Details}",
+              "size": "Small",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Fecha",
+              "spacing": "None",
+              "size": "Small",
+              "id": ""
+            },
+            {
+              "type": "TextBlock",
+              "text": "{fe_solicitud}",
+              "spacing": "None",
+              "$data": "{$root.Details}",
+              "size": "Small",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Tipo",
+              "spacing": "None",
+              "size": "Small",
+              "id": ""
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_tipo}",
+              "spacing": "None",
+              "$data": "{$root.Details}",
+              "size": "Small",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Estado",
+              "spacing": "None",
+              "size": "Small",
+              "id": ""
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_estado}",
+              "spacing": "None",
+              "$data": "{$root.Details}",
+              "size": "Small",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Nro.Resolución",
+              "spacing": "None",
+              "size": "Small",
+              "id": ""
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_resolucion}",
+              "spacing": "None",
+              "$data": "{$root.Details}",
+              "size": "Small",
+              "id": ""
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ActionSet",
+          "actions": [
+            {
+              "type": "Action.ShowCard",
+              "title": "seleccionar solicitud",
+              "style": "Default",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Text",
+                    "id": "txtNumeroSolicitud",
+                    "placeholder": "Ingresar numero de solicitud.",
+                    "isMultiline": false
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Ok",
+                    "data": {
+                      "id": "ConsultarIdSolicitudLicencia",
+                      "action": "reject"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}

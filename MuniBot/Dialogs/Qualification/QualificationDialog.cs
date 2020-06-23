@@ -13,11 +13,12 @@ namespace MuniBot.Dialogs.Qualification
 {
     public class QualificationDialog:ComponentDialog
     {
-        private IDataBaseService _databaseService;
+        // private IDataBaseService _databaseService;
 
-        public QualificationDialog(IDataBaseService databaseService)
+        // public QualificationDialog(IDataBaseService databaseService)
+        public QualificationDialog()
         {
-            _databaseService = databaseService;
+            // _databaseService = databaseService;
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -68,9 +69,11 @@ namespace MuniBot.Dialogs.Qualification
             return await stepContext.ContinueDialogAsync(cancellationToken:cancellationToken);
         }
 
+/*
         private async Task SaveQualification(WaterfallStepContext stepContext, string options)
         {
             var qualificationModel = new QualificationModel();
+
             qualificationModel.id = Guid.NewGuid().ToString();
             qualificationModel.idUser = stepContext.Context.Activity.From.Id;
             qualificationModel.qualification = options;
@@ -78,7 +81,7 @@ namespace MuniBot.Dialogs.Qualification
 
             await _databaseService.Qualification.AddAsync(qualificationModel);
             await _databaseService.SaveAsync();
-
         }
+*/
     }
 }

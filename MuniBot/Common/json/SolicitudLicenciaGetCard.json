@@ -1,0 +1,325 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "$data": "{Contribuyente}",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Solicitud de Licencia de Funcionamiento",
+      "horizontalAlignment": "Center",
+      "size": "Medium"
+    },
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Datos del Contribuyente",
+      "horizontalAlignment": "Left",
+      "size": "Medium"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "1",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Solicitante",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Tipo de Persona",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Documento",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Direccion",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Telefono",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Correo",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "3",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "{no_contribuyente}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_tipo_persona}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{co_documento_identidad} {nu_documento_identidad}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_direccion_contribuyente}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_telefono}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_correo_electronico}",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Datos de la Solicitud",
+      "horizontalAlignment": "Left",
+      "size": "Medium"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "1",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Numero",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Tipo de Licencia",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Nombre Comercial",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Clase",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Sub Clase",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Categoria",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Ubicacion",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Area m2",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Estado tramite",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "3",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "{nu_solicitud_licencia}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_tipo_licencia}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_comercial}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_clase}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_subclase}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_categoria}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_direccion_solicitud}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{nu_area}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "{no_estado}",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Resolucion",
+      "horizontalAlignment": "Left",
+      "size": "Medium"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "1",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Numero",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Fecha",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Autorizado por",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "3",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "{nu_resolucion}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{fe_resolucion}",
+              "spacing": "None",
+              "size": "Small"
+            },
+            {
+              "type": "TextBlock",
+              "text": "{no_autorizador}",
+              "spacing": "None",
+              "size": "Small"
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+} 

@@ -34,7 +34,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Licencia de Funcionamiento",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/02_LicenciaFuncionamiento.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/02_LicenciaFuncionamiento.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Realizar Trámite",Value="",Type=ActionTypes.ImBack},
@@ -46,7 +46,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Impuesto Vehicular",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/03_ImpuestoVehicular.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/03_ImpuestoVehicular.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Realizar Trámite",Value="",Type=ActionTypes.ImBack},
@@ -58,7 +58,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Estado de Cuenta",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/04_EstadoCuenta.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/04_EstadoCuenta.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Consultar",Value="",Type=ActionTypes.ImBack},
@@ -69,7 +69,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Centro de Contactos",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/05_CentroContactos.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/05_CentroContactos.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Consultar",Value="Centro de Contactos",Type=ActionTypes.ImBack},
@@ -81,7 +81,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Calificación",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/06_Calificar.jpg") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/06_Calificar.jpg") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Calificar Bot",Value="Calificar Bot",Type=ActionTypes.ImBack}
@@ -92,7 +92,7 @@ namespace MuniBot.Common.Cards
             {
                 Title = "Registrar Ciudadano",
                 Subtitle = "Opciones",
-                Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/07_RegistrarUsuario.png") },
+                //Images = new List<CardImage> { new CardImage("https://munibotstorage.blob.core.windows.net/images/07_RegistrarUsuario.png") },
                 Buttons = new List<CardAction>()
                 {
                     new CardAction(){Title = "Registrar Ciudadano",Value="Registrar Ciudadano",Type=ActionTypes.ImBack}

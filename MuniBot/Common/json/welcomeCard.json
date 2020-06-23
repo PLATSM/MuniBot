@@ -6,7 +6,8 @@
   "body": [
     {
       "type": "Image",
-      "url": "https://munibotstorage.blob.core.windows.net/images/08_LogoMunicipalidad.png",
+      // "url": "https://munibotstorage.blob.core.windows.net/images/08_LogoMunicipalidad.png",
+      "url": "data:img/08_LogoMunicipalidad.png",
       "horizontalAlignment": "Left",
       "width": "400px",
       "height": "70px"
@@ -109,7 +110,7 @@
   //    "title": "Menu Principal",
   //    "data": "Menu Principal"
         //"data": {
-        //  "id": "welcomeCard"
+        //  "id": "WelcomeCard"
         //}
   //  }
   //]
